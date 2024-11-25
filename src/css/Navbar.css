@@ -1,0 +1,107 @@
+/* Navbar.css */
+
+.navbar {
+  width: 100%; /* Ocupa el ancho completo de la pantalla */
+  position: fixed; /* Fija el navbar en la parte superior de la pantalla */
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background-color: #009688;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade una sombra para separar visualmente el navbar */
+  z-index: 1000; /* Asegura que esté siempre por encima de otros elementos */
+}
+
+.nav-links {
+  align-items: center;
+  display: flex;
+  gap: 30px; /* Aumenté el gap para espaciar más los elementos */
+}
+
+.nav-links a, .logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px; /* Aumenté el tamaño de fuente para mejorar la visibilidad */
+}
+
+.nav-links button {
+  padding: 10px 20px; /* Ajusté el padding para mejor apariencia */
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-links button:hover {
+  background-color: #FF5722;
+}
+
+.logo a {
+  font-size: 22px; /* Aumenté el tamaño de fuente del logo */
+  font-weight: bold;
+  color: white;
+}
+
+/* Espaciado adicional para el contenido principal */
+.main-content {
+  margin-top: 80px; /* Añadir espacio para que el contenido no se superponga con el navbar */
+}
+
+/* Estilos para el dropdown */
+.user-role {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-role span {
+  color: white;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Asegura que el dropdown esté debajo del botón */
+  left: 0;
+  background-color: #444;
+  border-radius: 5px;
+  padding: 10px;
+  display: none; /* Inicialmente oculto */
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Asegura que se muestre por encima de otros elementos */
+}
+
+.user-role:hover .dropdown-menu,
+.user-role:focus-within .dropdown-menu {
+  display: flex; /* Muestra el dropdown al pasar el ratón o al hacer foco */
+}
+
+.dropdown-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.dropdown-menu a:hover {
+  background-color: #6a11cb;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background-color: #FF5722;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #FF5722;
+}

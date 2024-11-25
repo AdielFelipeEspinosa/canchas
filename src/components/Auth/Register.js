@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import '../css/Register.css';
+import '../../css/Register.css';
+import Navbar from '../Navbar/Navbar';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -46,6 +47,7 @@ const Register = () => {
 
   return (
     <div className="register-container">
+      <Navbar />
       <div className="register-box">
         <h2>Registrar Usuario</h2>
         {success && <p className="success">{success}</p>}
@@ -97,6 +99,9 @@ const Register = () => {
           </div>
           <button type="submit" className="register-button">Registrar</button>
         </form>
+        <div className="login-link">
+          ¿Ya tienes una cuenta? <a href="/login">Inicia Sesión</a>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Navbar from './Navbar/Navbar';
 
 const Users = () => {
   const [users, setUsers] = useState([]); // Estado para guardar los usuarios
@@ -29,6 +30,7 @@ const Users = () => {
 
   return (
     <div>
+      <Navbar />
       <h1>Lista de Usuarios</h1>
       <table border="1" style={{ width: '100%', textAlign: 'left' }}>
         <thead>

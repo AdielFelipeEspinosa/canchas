@@ -10,7 +10,7 @@ const UserProvider = ({ children }) => {
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
-
+  
   // Guardar el usuario en localStorage cuando cambia
   useEffect(() => {
     if (user) {

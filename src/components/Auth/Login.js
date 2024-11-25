@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
-import '../css/Login.css';
+import '../../css/Login.css';
+import Navbar from '../Navbar/Navbar';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const { setUser } = useContext(UserContext); // Accede al setUser desde el contexto
   const [success, setSuccess] = useState(null); // Mensaje de éxito
   const [error, setError] = useState(null); // Mensaje de error
+  const [loading, setLoading] = useState(false); // Estado para manejar el loading
   const navigate = useNavigate(); // Para redirigir
 
   const handleChange = (e) => {
@@ -15,6 +17,9 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
+
+    setLoading(true); // Detén el loading
+
     e.preventDefault();
 
     fetch('https://reservascanhasback.onrender.com/users/login', {
@@ -31,20 +36,30 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        setUser({ nombre: data.nombre }); // Guarda la información del usuario en el contexto
+        setUser({ 
+          nombre: data.nombre,
+          rol: data.rol, }); // Guarda la información del usuario en el contexto
         localStorage.setItem('token', data.token); // Guarda el token en localStorage
+        setLoading(false); // Detén el loading
         setSuccess('Inicio de sesión exitoso.');
         setError(null);
         navigate('/'); // Redirige al inicio después de iniciar sesión
+        
       })
       .catch((error) => {
+        setLoading(false); // Detén el loading
         setError(error.message);
         setSuccess(null);
+        
       });
+
   };
+
+  if (loading) return <p>Cargando...</p>;
 
   return (
     <div className="login-container">
+      <Navbar />
       <div className="login-box">
         <h2>Iniciar Sesión</h2>
         {success && <p style={{ color: 'green' }}>{success}</p>}
