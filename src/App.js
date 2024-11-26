@@ -10,6 +10,7 @@ import CanchasCrud from "./components/Pages/CanchasCRUD.js";
 import EditProfile from "./components/Pages/EditProfile.js";
 import TipCanchaCRUD from "./components/Pages/TipCanchaCRUD .js";
 import OpinionesCRUD from "./components/Pages/OpinionesCRUD.js";
+import UserReservations from "./components/Pages/UserReservations .js";
 
 const App = () => {
   // Definición de rutas protegidas
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/opiniones" element={<OpinionesCRUD />} />
+          <Route path="/misResrvas" element={<UserReservations />} />
 
           {/* Rutas protegidas dinámicas */}
           {protectedRoutes.map(({ path, element, allowedRoles }) => (
