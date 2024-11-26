@@ -3,6 +3,7 @@ import Navbar from '../Static/Navbar';
 
 const CanchasCRUD = () => {
   const [canchas, setCanchas] = useState([]);
+  const [tiposCancha, setTiposCancha] = useState([]);
   const [currentCancha, setCurrentCancha] = useState({
     id: '',
     nombre: '',
@@ -12,12 +13,13 @@ const CanchasCRUD = () => {
     tipoCanchaId: '',
   });
 
-  const API_URL = 'https://reservascanhasback.onrender.com/canchas';
+  const API_CANCHAS = 'https://reservascanhasback.onrender.com/canchas';
+  const API_TIPOS_CANCHA = 'https://reservascanhasback.onrender.com/tipCancha';
 
   // Obtener todas las canchas
   const fetchCanchas = async () => {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(API_CANCHAS);
       const data = await response.json();
       setCanchas(data);
     } catch (error) {
@@ -25,10 +27,21 @@ const CanchasCRUD = () => {
     }
   };
 
+  // Obtener todos los tipos de cancha
+  const fetchTiposCancha = async () => {
+    try {
+      const response = await fetch(API_TIPOS_CANCHA);
+      const data = await response.json();
+      setTiposCancha(data);
+    } catch (error) {
+      console.error('Error fetching tipos de cancha:', error);
+    }
+  };
+
   // Crear nueva cancha
   const createCancha = async () => {
     try {
-      const response = await fetch(`${API_URL}/create`, {
+      const response = await fetch(`${API_CANCHAS}/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(currentCancha),
@@ -45,7 +58,7 @@ const CanchasCRUD = () => {
   // Actualizar cancha
   const updateCancha = async (id) => {
     try {
-      const response = await fetch(`${API_URL}/update/${id}`, {
+      const response = await fetch(`${API_CANCHAS}/update/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(currentCancha),
@@ -62,7 +75,7 @@ const CanchasCRUD = () => {
   // Eliminar cancha
   const deleteCancha = async (id) => {
     try {
-      const response = await fetch(`${API_URL}/delete/${id}`, {
+      const response = await fetch(`${API_CANCHAS}/delete/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -92,6 +105,7 @@ const CanchasCRUD = () => {
 
   useEffect(() => {
     fetchCanchas();
+    fetchTiposCancha();
   }, []);
 
   return (
@@ -102,13 +116,19 @@ const CanchasCRUD = () => {
 
       {/* Lista de Canchas */}
       <ul>
-        {canchas.map((cancha) => (
-          <li key={cancha.id}>
-            {cancha.nombre} - {cancha.ubicacion} - {cancha.capacidad} personas - ${cancha.precioPorHora}/hora
-            <button onClick={() => deleteCancha(cancha.id)}>Eliminar</button>
-            <button onClick={() => prefillForm(cancha)}>Actualizar</button>
-          </li>
-        ))}
+        {canchas.map((cancha) => {
+          // Encontrar el tipo de cancha correspondiente al ID
+          const tipoCancha = tiposCancha.find((tipo) => tipo.id === cancha.tipoCanchaId);
+
+          return (
+            <li key={cancha.id}>
+              {cancha.nombre} - {cancha.ubicacion} - {cancha.capacidad} personas - ${cancha.precioPorHora}/hora 
+              - Tipo: {tipoCancha ? tipoCancha.nombre : 'Tipo desconocido'}
+              <button onClick={() => deleteCancha(cancha.id)}>Eliminar</button>
+              <button onClick={() => prefillForm(cancha)}>Actualizar</button>
+            </li>
+          );
+        })}
       </ul>
 
       {/* Formulario para crear/actualizar */}
@@ -144,12 +164,17 @@ const CanchasCRUD = () => {
             value={currentCancha.precioPorHora}
             onChange={(e) => setCurrentCancha({ ...currentCancha, precioPorHora: e.target.value })}
           />
-          <input
-            type="text"
-            placeholder="Tipo Cancha ID"
+          <select
             value={currentCancha.tipoCanchaId}
             onChange={(e) => setCurrentCancha({ ...currentCancha, tipoCanchaId: e.target.value })}
-          />
+          >
+            <option value="">Seleccione un tipo de cancha</option>
+            {tiposCancha.map((tipo) => (
+              <option key={tipo.id} value={tipo.id}>
+                {tipo.nombre}
+              </option>
+            ))}
+          </select>
           <button type="submit">{currentCancha.id ? 'Actualizar' : 'Crear'}</button>
           {currentCancha.id && <button onClick={resetForm}>Cancelar</button>}
         </form>

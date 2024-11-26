@@ -8,12 +8,14 @@ import Users from "./components/Pages/Users.js";
 import ProtectedRoute from "./components/Context/ProtectedRoute.js";
 import CanchasCrud from "./components/Pages/CanchasCRUD.js";
 import EditProfile from "./components/Pages/EditProfile.js";
+import TipCanchaCRUD from "./components/Pages/TipCanchaCRUD .js";
 
 const App = () => {
   // Definición de rutas protegidas
   const protectedRoutes = [
     { path: "/users", element: <Users />, allowedRoles: ["admin"] },
     { path: "/canchas", element: <CanchasCrud />, allowedRoles: ["admin"] },
+    { path: "/tipCancha", element: <TipCanchaCRUD />, allowedRoles: ["admin"] },
     { path: "/editProfile", element: <EditProfile />, allowedRoles: ["admin","cliente"] },
   ];
 

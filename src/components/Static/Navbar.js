@@ -28,6 +28,7 @@ const Navbar = () => {
                   <>
                     <Link to="/users">Usuarios</Link>
                     <Link to="/canchas">Canchas</Link>
+                    <Link to="/tipCancha">Tipo Canchas</Link>
                     <Link to="/editProfile">Perfil</Link>
                   </>
                 ) : (
