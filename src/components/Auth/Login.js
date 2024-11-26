@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
 import '../../css/Login.css';
-import Navbar from '../Navbar/Navbar';
+import Navbar from '../Static/Navbar';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -18,7 +18,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
 
-    setLoading(true); // Detén el loading
+    setLoading(true);
 
     e.preventDefault();
 
@@ -36,12 +36,16 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        setUser({ 
+        console.log(data);
+        setUser({
+          id: data.id_usuarios,
           nombre: data.nombre,
-          rol: data.rol, }); // Guarda la información del usuario en el contexto
+          apellido: data.apellido,
+          email: data.email,
+          rol: data.rol,
+         }); // Guarda la información del usuario en el contexto
         localStorage.setItem('token', data.token); // Guarda el token en localStorage
         setLoading(false); // Detén el loading
-        setSuccess('Inicio de sesión exitoso.');
         setError(null);
         navigate('/'); // Redirige al inicio después de iniciar sesión
         

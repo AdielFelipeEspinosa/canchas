@@ -1,10 +1,9 @@
 /* Index.css */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.spacer {
+  height: 1000px; /* Asegúrate de que sea igual a la altura de tu navbar */
 }
+
 
 body {
   font-family: Arial, sans-serif;
@@ -86,7 +85,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
-  margin-top: 40% ;
+  margin-top: 20% ;
   padding: 10px;
 }
 

@@ -1,7 +1,5 @@
-/* Navbar.css */
-
 .navbar {
-  width: 100%; /* Ocupa el ancho completo de la pantalla */
+  width: 95%; /* Ocupa el ancho completo de la pantalla */
   position: fixed; /* Fija el navbar en la parte superior de la pantalla */
   top: 0;
   left: 0;
@@ -104,4 +102,4 @@
 
 .logout-button:hover {
   background-color: #FF5722;
-}
+} 

@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/Register.css';
 import Navbar from '../Static/Navbar';
+import { UserContext } from '../Context/UserContext';
 
-const Register = () => {
+const EditProfile = () => {
+  const { user } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  // Declara los hooks antes de cualquier condicional
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    nombre: '',
-    apellido: '',
+    email: user?.email || '',
+    nombre: user?.nombre || '',
+    apellido: user?.apellido || '',
   });
-
   const [success, setSuccess] = useState(null); // Mensaje de éxito
   const [error, setError] = useState(null); // Mensaje de error
   const [loading, setLoading] = useState(false); // Estado para manejar el loading
-  const navigate = useNavigate(); // Para redirigir
+
+  // Actualizar el estado del formulario si los datos del usuario cambian
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        email: user.email,
+        nombre: user.nombre,
+        apellido: user.apellido,
+      });
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,10 +36,10 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // Realiza la solicitud POST al backend
-    fetch('https://reservascanhasback.onrender.com/users/userRegister', {
-      method: 'POST',
+    fetch(`https://reservascanhasback.onrender.com/users/edit/${user.id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -33,31 +47,46 @@ const Register = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Error al registrar el usuario');
+          throw new Error('Error al actualizar el usuario');
         }
         return response.json();
       })
-      //Inicio existoso
       .then(() => {
         setLoading(false); // Detén el loading
+        navigate('/');
         setError(null);
-        navigate('/login');
-      })
+        // Actualiza los datos del usuario en el contexto y en el localStorage
+      setUser({
+        ...user, // Conserva el resto de los datos actuales del usuario
+        ...formData, // Actualiza los campos modificados
+      });
 
-      //Erro
+      // Actualiza el localStorage con los nuevos datos del usuario
+      localStorage.setItem('user', JSON.stringify({
+        ...user,
+        ...formData,
+      }));
+
+      })
       .catch((error) => {
         setLoading(false); // Detén el loading
+        setError('Hubo un problema al actualizar el perfil');
         setSuccess(null);
+        console.error(error);
       });
   };
 
-  if (loading) return <p>Cargando...</p>;
+  // Manejar los retornos condicionales después de declarar los hooks
+
+  if (loading) {
+    return <p>Cargando...</p>;
+  }
 
   return (
     <div className="register-container">
       <Navbar />
       <div className="register-box">
-        <h2>Registrar Usuario</h2>
+        <h2>Actualizar Usuario</h2>
         {success && <p className="success">{success}</p>}
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
@@ -68,17 +97,6 @@ const Register = () => {
               id="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
               onChange={handleChange}
               required
             />
@@ -105,14 +123,11 @@ const Register = () => {
               required
             />
           </div>
-          <button type="submit" className="register-button">Registrar</button>
+          <button type="submit" className="register-button">Actualizar</button>
         </form>
-        <div className="login-link">
-          ¿Ya tienes una cuenta? <a href="/login">Inicia Sesión</a>
-        </div>
       </div>
     </div>
   );
 };
 
-export default Register;
+export default EditProfile;

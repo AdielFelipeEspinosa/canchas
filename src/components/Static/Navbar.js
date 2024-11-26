@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom'; // Usamos Link para la navegación
 import { UserContext } from '../Context/UserContext'; // Asegúrate de importar el contexto
 import '../../css/Navbar.css'; // Si tienes estilos en un archivo CSS separado
@@ -11,11 +11,6 @@ const Navbar = () => {
     localStorage.removeItem('user'); // Limpia el usuario del localStorage
   };
 
-  const [isOpen, setIsOpen] = useState(false); // Controla si el dropdown está abierto
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen); // Alterna el estado del dropdown
-  };
 
   return (
     <nav className="navbar">
@@ -31,9 +26,9 @@ const Navbar = () => {
               <div className="dropdown-menu">
                 {user.rol === 'admin' ? (
                   <>
-                    <Link to="/users">Users</Link>
-                    <Link to="/">MiApp</Link>
-                    <Link to="/">MiApp</Link>
+                    <Link to="/users">Usuarios</Link>
+                    <Link to="/canchas">Canchas</Link>
+                    <Link to="/editProfile">Perfil</Link>
                   </>
                 ) : (
                   <>

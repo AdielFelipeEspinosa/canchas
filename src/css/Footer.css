@@ -2,71 +2,72 @@
     background: linear-gradient(135deg, #009688, #009688);
     color: #fff;
     text-align: center;
-    padding-top: 30px;
-  }
-  
-  .footer .footer-content {
+    padding: 0;
+    width: 100%; /* Asegurar que ocupe toda la pantalla */
+}
+
+.footer .footer-content {
     display: flex;
     justify-content: space-between;
-    max-width: 1200px;
+    width: 90%; /* Cambiar max-width por width para ocupar todo el espacio */
     margin: 0 auto;
     padding: 20px;
     flex-wrap: wrap;
-  }
-  
-  .footer .footer-section {
+}
+
+.footer .footer-section {
     flex: 1;
     margin: 15px;
     padding: 15px;
-  }
-  
-  .footer .footer-section h2 {
+}
+
+.footer .footer-section h2 {
     font-size: 1.8rem;
     margin-bottom: 15px;
     color: #131312;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .footer .footer-section p {
+}
+
+.footer .footer-section p {
     font-size: 1rem;
     line-height: 1.6;
-  }
-  
-  .footer .footer-section ul {
+}
+
+.footer .footer-section ul {
     list-style: none;
     padding: 0;
-  }
-  
-  .footer .footer-section ul li {
+}
+
+.footer .footer-section ul li {
     margin-bottom: 10px;
-  }
-  
-  .footer .footer-section ul li a {
+}
+
+.footer .footer-section ul li a {
     color: #131312;
     text-decoration: none;
     font-size: 1.1rem;
-  }
-  
-  .footer .footer-section ul li a:hover {
+}
+
+.footer .footer-section ul li a:hover {
     text-decoration: underline;
-  }
-  
-  .footer .socials a {
+}
+
+.footer .socials a {
     color: #131312;
     font-size: 1.5rem;
     margin: 0 10px;
     text-decoration: none;
-  }
-  
-  .footer .socials a:hover {
+}
+
+.footer .socials a:hover {
     color: #fff;
-  }
-  
-  .footer-bottom {
+}
+
+.footer-bottom {
     background: rgba(0, 0, 0, 0.2);
     padding: 15px;
     font-size: 0.9rem;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
-  }
+    letter-spacing: 1px;
+}
